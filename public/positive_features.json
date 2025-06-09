@@ -1,0 +1,352 @@
+[
+  {
+    "id": "pos_1",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_1.dat",
+    "type": "positive",
+    "feature_vector": [0.51, 0.49, 0.12]
+  },
+  {
+    "id": "pos_2",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_2.dat",
+    "type": "positive",
+    "feature_vector": [0.48, 0.52, -0.05]
+  },
+  {
+    "id": "pos_3",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_3.dat",
+    "type": "positive",
+    "feature_vector": [0.53, 0.51, 0.25]
+  },
+  {
+    "id": "pos_4",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_4.dat",
+    "type": "positive",
+    "feature_vector": [0.49, 0.48, -0.18]
+  },
+  {
+    "id": "pos_5",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_5.dat",
+    "type": "positive",
+    "feature_vector": [0.50, 0.53, 0.30]
+  },
+  {
+    "id": "pos_6",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_6.dat",
+    "type": "positive",
+    "feature_vector": [0.52, 0.47, 0.08]
+  },
+  {
+    "id": "pos_7",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_7.dat",
+    "type": "positive",
+    "feature_vector": [0.47, 0.50, -0.11]
+  },
+  {
+    "id": "pos_8",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_8.dat",
+    "type": "positive",
+    "feature_vector": [0.54, 0.52, 0.22]
+  },
+  {
+    "id": "pos_9",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_9.dat",
+    "type": "positive",
+    "feature_vector": [0.46, 0.49, -0.20]
+  },
+  {
+    "id": "pos_10",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_10.dat",
+    "type": "positive",
+    "feature_vector": [0.51, 0.54, 0.35]
+  },
+  {
+    "id": "pos_11",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_11.dat",
+    "type": "positive",
+    "feature_vector": [0.10, 0.10, 0.05]
+  },
+  {
+    "id": "pos_12",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_12.dat",
+    "type": "positive",
+    "feature_vector": [0.12, 0.08, -0.02]
+  },
+  {
+    "id": "pos_13",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_13.dat",
+    "type": "positive",
+    "feature_vector": [0.08, 0.11, 0.08]
+  },
+  {
+    "id": "pos_14",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_14.dat",
+    "type": "positive",
+    "feature_vector": [0.11, 0.09, -0.06]
+  },
+  {
+    "id": "pos_15",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_15.dat",
+    "type": "positive",
+    "feature_vector": [0.09, 0.12, 0.10]
+  },
+  {
+    "id": "pos_16",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_16.dat",
+    "type": "positive",
+    "feature_vector": [0.55, 0.55, 0.15]
+  },
+  {
+    "id": "pos_17",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_17.dat",
+    "type": "positive",
+    "feature_vector": [0.57, 0.53, -0.03]
+  },
+  {
+    "id": "pos_18",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_18.dat",
+    "type": "positive",
+    "feature_vector": [0.53, 0.56, 0.28]
+  },
+  {
+    "id": "pos_19",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_19.dat",
+    "type": "positive",
+    "feature_vector": [0.56, 0.54, -0.15]
+  },
+  {
+    "id": "pos_20",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_20.dat",
+    "type": "positive",
+    "feature_vector": [0.54, 0.57, 0.32]
+  },
+  {
+    "id": "pos_21",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_21.dat",
+    "type": "positive",
+    "feature_vector": [0.45, 0.46, 0.10]
+  },
+  {
+    "id": "pos_22",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_22.dat",
+    "type": "positive",
+    "feature_vector": [0.47, 0.44, -0.07]
+  },
+  {
+    "id": "pos_23",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_23.dat",
+    "type": "positive",
+    "feature_vector": [0.49, 0.47, 0.20]
+  },
+  {
+    "id": "pos_24",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_24.dat",
+    "type": "positive",
+    "feature_vector": [0.44, 0.45, -0.13]
+  },
+  {
+    "id": "pos_25",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_25.dat",
+    "type": "positive",
+    "feature_vector": [0.46, 0.48, 0.27]
+  },
+  {
+    "id": "pos_26",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_26.dat",
+    "type": "positive",
+    "feature_vector": [0.58, 0.59, 0.18]
+  },
+  {
+    "id": "pos_27",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_27.dat",
+    "type": "positive",
+    "feature_vector": [0.60, 0.57, -0.01]
+  },
+  {
+    "id": "pos_28",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_28.dat",
+    "type": "positive",
+    "feature_vector": [0.56, 0.60, 0.33]
+  },
+  {
+    "id": "pos_29",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_29.dat",
+    "type": "positive",
+    "feature_vector": [0.59, 0.58, -0.10]
+  },
+  {
+    "id": "pos_30",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_30.dat",
+    "type": "positive",
+    "feature_vector": [0.57, 0.61, 0.38]
+  },
+  {
+    "id": "pos_31",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_31.dat",
+    "type": "positive",
+    "feature_vector": [0.05, 0.06, 0.03]
+  },
+  {
+    "id": "pos_32",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_32.dat",
+    "type": "positive",
+    "feature_vector": [0.07, 0.04, -0.01]
+  },
+  {
+    "id": "pos_33",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_33.dat",
+    "type": "positive",
+    "feature_vector": [0.03, 0.07, 0.06]
+  },
+  {
+    "id": "pos_34",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_34.dat",
+    "type": "positive",
+    "feature_vector": [0.06, 0.05, -0.04]
+  },
+  {
+    "id": "pos_35",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_35.dat",
+    "type": "positive",
+    "feature_vector": [0.04, 0.08, 0.09]
+  },
+  {
+    "id": "pos_36",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_36.dat",
+    "type": "positive",
+    "feature_vector": [0.61, 0.62, 0.20]
+  },
+  {
+    "id": "pos_37",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_37.dat",
+    "type": "positive",
+    "feature_vector": [0.63, 0.60, 0.01]
+  },
+  {
+    "id": "pos_38",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_38.dat",
+    "type": "positive",
+    "feature_vector": [0.59, 0.63, 0.36]
+  },
+  {
+    "id": "pos_39",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_39.dat",
+    "type": "positive",
+    "feature_vector": [0.62, 0.61, -0.08]
+  },
+  {
+    "id": "pos_40",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_40.dat",
+    "type": "positive",
+    "feature_vector": [0.60, 0.64, 0.40]
+  },
+  {
+    "id": "pos_41",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_41.dat",
+    "type": "positive",
+    "feature_vector": [0.40, 0.41, 0.07]
+  },
+  {
+    "id": "pos_42",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_42.dat",
+    "type": "positive",
+    "feature_vector": [0.42, 0.39, -0.09]
+  },
+  {
+    "id": "pos_43",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_43.dat",
+    "type": "positive",
+    "feature_vector": [0.38, 0.42, 0.18]
+  },
+  {
+    "id": "pos_44",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_44.dat",
+    "type": "positive",
+    "feature_vector": [0.41, 0.40, -0.16]
+  },
+  {
+    "id": "pos_45",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_45.dat",
+    "type": "positive",
+    "feature_vector": [0.39, 0.43, 0.24]
+  },
+  {
+    "id": "pos_46",
+    "image": "/mock_images/pos_1.svg",
+    "filename": "original_pos_46.dat",
+    "type": "positive",
+    "feature_vector": [0.65, 0.66, 0.23]
+  },
+  {
+    "id": "pos_47",
+    "image": "/mock_images/pos_2.svg",
+    "filename": "original_pos_47.dat",
+    "type": "positive",
+    "feature_vector": [0.67, 0.64, 0.04]
+  },
+  {
+    "id": "pos_48",
+    "image": "/mock_images/pos_3.svg",
+    "filename": "original_pos_48.dat",
+    "type": "positive",
+    "feature_vector": [0.63, 0.67, 0.39]
+  },
+  {
+    "id": "pos_49",
+    "image": "/mock_images/pos_4.svg",
+    "filename": "original_pos_49.dat",
+    "type": "positive",
+    "feature_vector": [0.66, 0.65, -0.05]
+  },
+  {
+    "id": "pos_50",
+    "image": "/mock_images/pos_5.svg",
+    "filename": "original_pos_50.dat",
+    "type": "positive",
+    "feature_vector": [0.64, 0.68, 0.42]
+  }
+]
