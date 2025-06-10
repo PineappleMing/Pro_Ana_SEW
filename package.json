@@ -12,7 +12,9 @@
     "@tensorflow/tfjs": "^4.22.0",
     "@tensorflow/tfjs-tsne": "^0.2.0",
     "echarts": "^5.6.0",
+    "echarts-gl": "^2.0.9",
     "ml.js": "^0.0.1",
+    "openseadragon": "^5.0.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
