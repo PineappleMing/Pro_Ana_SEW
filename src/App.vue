@@ -15,7 +15,7 @@ const selectedImage = ref(null);
 const clickedFeatureObject = ref(null); // To store the full clicked feature object
 const nearbyImages = ref([]); // Reactive ref for nearby images
 const displayMode = ref('all');
-const vips = ["201465833_HE_3","201466840_HE_3.dzi","201503063_HE_3","201517427_HE_3"]
+const vips = ["201465833_HE_3","201466840_HE_3","201503063_HE_3","201517427_HE_3"]
 // Function to find nearby images based on 2D coordinates of the clickedFeature
 const findNearbyImages = (clickedFeature, allSourceFeatures, count) => {
   if (!clickedFeature || !clickedFeature.value || !allSourceFeatures || allSourceFeatures.length === 0) {
@@ -71,6 +71,18 @@ onMounted(async () => {
     showNavigator: true,
     navigatorPosition: "BOTTOM_RIGHT",
     // You might want to add more OSD options here
+  });
+      // 创建一个 div 作为矩形
+  var rect = document.createElement('div');
+  rect.style.border = '2px solid red';
+  rect.style.position = 'absolute';
+  rect.style.width = '100px';
+  rect.style.height = '100px';
+
+  // 添加到 OpenSeadragon 查看器中
+  viewer.addOverlay({
+    element: rect,
+    location: new OpenSeadragon.Rect(0.3, 0.3, 0.2, 0.2) // x, y, width, height (normalized)
   });
 });
 
