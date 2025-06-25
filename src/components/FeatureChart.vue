@@ -35,9 +35,9 @@ const updateChart = () => {
   console.log('Representative Features:', props.representativeFeatures);
   const chartData = props.representativeFeatures.map(f => {
     let opacity = 0.8;
-    if (props.displayMode === 'positive' && f.type === "1") {
+    if (props.displayMode === 'positive' && f.type === 1) {
       opacity = 0.1;
-    } else if (props.displayMode === 'negative' && f.type === "0") {
+    } else if (props.displayMode === 'negative' && f.type === 0) {
       opacity = 0.1;
     }
 
@@ -59,7 +59,7 @@ const updateChart = () => {
       name: f.id,
       value: pointValue, // This will be UMAP_3d or UMAP_2d with Z=0
       itemStyle: {
-        color: f.type === "1" ? '#c23531' : '#2f4554',
+        color: f.type === 1 ? '#c23531' : '#2f4554',
         opacity: opacity
       },
       emphasis: {
@@ -75,7 +75,6 @@ const updateChart = () => {
       originalUMAP3d: f.UMAP_3d // This is the original UMAP_3d from loadData
     };
   });
-  console.log('Chart Data for ECharts:', JSON.stringify(chartData.map(d => ({name: d.name, opacity: d.itemStyle.opacity})), null, 2));
 
   const option = {
     title: { text: '特征聚类图 (3D)' },
@@ -205,7 +204,7 @@ watch(() => props.displayMode, () => {
 <style scoped>
 .chart-canvas {
   width: 100%;
-  height: 600px; /* Or make this configurable via props */
+  height: 600px !important; /* Or make this configurable via props */
   border: 1px solid #dee2e6;
   border-radius: 4px;
 }

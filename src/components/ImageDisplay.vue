@@ -2,22 +2,33 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-  selectedImage: String,
-  nearbyImages: Array // Now directly receives the computed nearby images
+  selectedMeta:Object,
+  selectedPoint: String,
+  nearbyPoints: Array // Now directly receives the computed nearby images
 });
 
 // currentNearbyImages is now directly props.nearbyImages
-const currentNearbyImages = computed(() => props.nearbyImages || []);
-
+const currentNearbyPoints = computed(() => props.selectedPoint || []);
+const heatmap_url = computed(()=>`http://10.86.100.29/vips/zheyi_liver/heat_and_rank/${props.selectedMeta?.slide_id}/heatmap.png`)
 </script>
 
 <template>
   <div class="image-display-area">
     <!-- Selected Image Display -->
     <div class="selected-image-container">
+      <h3>当前 slide 热力图</h3>
+      <div v-if="heatmap_url">
+        <img :src="heatmap_url" alt="Selected Feature Image">
+      </div>
+      <div v-else>
+        <p>点击图中的点以显示图像</p>
+      </div>
+    </div>
+    <div class="selected-image-container">
       <h3>选定图像</h3>
-      <div v-if="selectedImage">
-        <img :src="selectedImage" alt="Selected Feature Image">
+      <div style="cursor: pointer;" v-if="selectedPoint">
+        {{selectedPoint.slide_id }} {{ selectedPoint.patch_coord }}
+        <!-- <img :src="selectedImage" alt="Selected Feature Image"> -->
       </div>
       <div v-else>
         <p>点击图中的点以显示图像</p>
@@ -26,8 +37,10 @@ const currentNearbyImages = computed(() => props.nearbyImages || []);
     <!-- Nearby Images Display -->
     <div class="nearby-images-container">
       <h3>选定点附近图像</h3>
-      <div v-if="props.nearbyImages && props.nearbyImages.length > 0" class="nearby-images">
-        <img v-for="(img, index) in props.nearbyImages" :key="`${img}-${index}`" :src="img" alt="Nearby Feature Image">
+      <div v-if="props.nearbyPoints && props.nearbyPoints.length > 0" class="nearby-images">
+        <div v-for="(point, index) in props.nearbyPoints" :key="`${point}-${index}`" style="cursor: pointer;">
+            {{ point.slide_id }} {{ point.patch_coord }}
+        </div>
       </div>
       <div v-else>
         <p>点击图中的点以显示附近图像</p>
@@ -93,13 +106,8 @@ h3 {
 }
 
 .nearby-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Slightly larger grid items */
-  gap: 15px;
-  max-height: 400px; /* Adjust height */
-  overflow-y: auto; /* Keep scroll for overflow */
-  margin-top: 10px;
-  padding-right: 5px; /* Add padding for scrollbar */
+
+  cursor: pointer;
 }
 
 /* Custom scrollbar for nearby images */

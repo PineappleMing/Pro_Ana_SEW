@@ -175,49 +175,6 @@ export const basicTSNE = (data, { perplexity = 30, learningRate = 100, iteration
   }));
 };
 
-// Random data generator with clustered distribution
-export const generateRandomFeatures = (count, type) => {
-  const centers = type === 'positive' ?
-    [
-      [0.3, 0.3, 0.1],
-      [0.5, 0.1, 0.3],
-      [0.1, 0.5, 0.2],
-      [0.4, -0.2, 0.2],
-      [-0.2, 0.4, 0.0]
-    ] :
-    [
-      [-0.3, -0.3, -0.1],
-      [-0.5, -0.1, -0.3],
-      [-0.1, -0.5, -0.2],
-      [-0.4, 0.2, -0.2],
-      [0.2, -0.4, 0.0]
-    ];
-
-  const features = [];
-  let images = ['/mock_images/pos_1.png', '/mock_images/pos_2.png', '/mock_images/pos_3.png', '/mock_images/pos_4.png', '/mock_images/pos_5.png'];
-  
-  if(type === 'negative') {
-    images = ['/mock_images/neg_1.png', '/mock_images/neg_2.png', '/mock_images/neg_3.png', '/mock_images/neg_4.png', '/mock_images/neg_5.png'];
-  }
-
-  for (let i = 0; i < count; i++) {
-    const center = centers[Math.floor(Math.random() * centers.length)];
-    const feature = {
-      id: `${type}_${i+1}`,
-      image: images[i % images.length],
-      filename: `original_${type}_${i+1}.dat`,
-      type: type,
-      feature_vector: [
-        center[0] + (Math.random() * 1.0 - 0.5),
-        center[1] + (Math.random() * 1.0 - 0.5),
-        center[2] + (Math.random() * 1.0 - 0.5)
-      ]
-    };
-    features.push(feature);
-  }
-  
-  return features;
-};
 
 // The findRepresentativeFeatures function might not be strictly necessary
 // if all loaded data points with UMAP_2d coordinates are to be displayed.
@@ -238,28 +195,30 @@ export const loadData = async () => {
   try {
     // Fetch data from the new JSON file structure
     // Assuming your new data is in a single file, adjust if it's multiple files
-    const response = await fetch('/clustered_patch_data.json'); // Or the correct path to your new data file
+    const response = await fetch('http://10.86.100.29/vips/zheyi_liver/umap_3d_conch_v15.json'); // Or the correct path to your new data file
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const rawData = await response.json();
-
+    const meta_response = await fetch('http://10.86.100.29/vips/zheyi_liver/slide_meta_info.json');
+    const slide_meta = await meta_response.json()
     // Adapt the rawData to the structure expected by the application
     const processedFeatures = rawData.map(item => ({
-      id: item.slide_id + '_' + item.patch_coord.join('_'), // Create a unique ID
-      image: item.image_url,
-      type: item.label, // 'positive' or 'negative'
-      value: item.UMAP_2d, // Directly use the 2D UMAP coordinates
+      id: item.slide_id + '_' + item.coord.join('_'), // Create a unique ID
+      // image: item.image_url,
+      type: item.slide_label, // 'positive' or 'negative'
+      // value: item.UMAP_2d, // Directly use the 2D UMAP coordinates
       // Add other necessary fields if any, e.g., originalValue if still needed for some processing
       // originalValue: item.embedding, // If you still need the original embedding for some reason
-      patch_coord: item.patch_coord,
+      patch_coord: item.coord,
       slide_id: item.slide_id,
       UMAP_3d: item.UMAP_3d // Keep 3D coordinates if needed for other purposes
     }));
 
     // Separate features based on label
-    const positiveFeatures = processedFeatures.filter(f => f.type === "1");
-    const negativeFeatures = processedFeatures.filter(f => f.type === "0");
+    const positiveFeatures = processedFeatures.filter(f => f.type === 1);
+    const negativeFeatures = processedFeatures.filter(f => f.type === 0);
+    console.log(positiveFeatures.length,negativeFeatures.length)
     // Since we are directly using UMAP_2d, all loaded features can be considered 'representative'
     // Or, if you still need a subset, you can implement a selection logic here.
     // For now, let's assume all processed features are used directly.
@@ -268,7 +227,8 @@ export const loadData = async () => {
     return {
       positiveFeatures,
       negativeFeatures,
-      representativeFeatures // These now directly use UMAP_2d coordinates
+      representativeFeatures, // These now directly use UMAP_2d coordinates
+      slide_meta
     };
   } catch (error) {
     console.error("Error loading or processing data:", error);
