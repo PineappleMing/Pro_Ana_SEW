@@ -6,10 +6,13 @@ const props = defineProps({
   selectedPoint: String,
   nearbyPoints: Array // Now directly receives the computed nearby images
 });
-
+const emit = defineEmits(['chart-click']);
 // currentNearbyImages is now directly props.nearbyImages
 const currentNearbyPoints = computed(() => props.selectedPoint || []);
 const heatmap_url = computed(()=>`http://10.86.100.29/vips/zheyi_liver/heat_and_rank/${props.selectedMeta?.slide_id}/heatmap.png`)
+const onClickPoint = (point)=>{
+  emit('chart-click', point);
+}
 </script>
 
 <template>
@@ -26,7 +29,7 @@ const heatmap_url = computed(()=>`http://10.86.100.29/vips/zheyi_liver/heat_and_
     </div>
     <div class="selected-image-container">
       <h3>选定图像</h3>
-      <div style="cursor: pointer;" v-if="selectedPoint">
+      <div @click="onClickPoint(selectedPoint)" style="cursor: pointer;" v-if="selectedPoint">
         {{selectedPoint.slide_id }} {{ selectedPoint.patch_coord }}
         <!-- <img :src="selectedImage" alt="Selected Feature Image"> -->
       </div>
@@ -38,7 +41,7 @@ const heatmap_url = computed(()=>`http://10.86.100.29/vips/zheyi_liver/heat_and_
     <div class="nearby-images-container">
       <h3>选定点附近图像</h3>
       <div v-if="props.nearbyPoints && props.nearbyPoints.length > 0" class="nearby-images">
-        <div v-for="(point, index) in props.nearbyPoints" :key="`${point}-${index}`" style="cursor: pointer;">
+        <div @click="onClickPoint(point)" v-for="(point, index) in props.nearbyPoints" :key="`${point}-${index}`" style="cursor: pointer;">
             {{ point.slide_id }} {{ point.patch_coord }}
         </div>
       </div>

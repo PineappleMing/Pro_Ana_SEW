@@ -54,7 +54,7 @@ const handleFeatureClick = (feature) => {
 
   // Placeholder for finding nearby images based on the clicked feature
   // Use representativeFeatures which have the t-SNE coordinates ('value' property)
-  nearbyPoints.value = findNearbyPoints(feature, representativeFeatures.value, 5); // Find 5 nearby images
+  nearbyPoints.value = findNearbyPoints(feature, representativeFeatures.value, 30); // Find 5 nearby images
 
   // DZI path logic removed as it's not in the new data structure
   // If DZI functionality is needed, it will require a new data field and handling.
@@ -63,13 +63,25 @@ const handleFeatureClick = (feature) => {
   selectedMeta.value= Object.assign(slice_meta.value[feature.slide_id],{"slide_id":feature.slide_id})
   const coord = feature.patch_coord
   const size = selectedMeta.value.size
-  const viewportPoint = viewer.viewport.imageToViewportCoordinates(Math.random(),Math.random())
   viewer.addHandler('open', () => { 
+    const point = new OpenSeadragon.Point(coord[0], coord[1])
+    const viewportPoint = viewer.viewport.imageToViewportCoordinates(point)
     viewer.viewport.zoomTo(20)
     viewer.viewport.panTo(viewportPoint)
   })
+};
 
-
+const handleNearClick = (feature) => {
+  console.log('Feature clicked in App.vue:', feature);
+  viewer.open(`http://10.86.100.29/vips/zheyi_liver/vips/${feature.slide_id}.dzi`)
+  // console.log("lhm=====",feature)
+  const coord = feature.patch_coord
+  viewer.addHandler('open', () => { 
+    const point = new OpenSeadragon.Point(coord[0], coord[1])
+    const viewportPoint = viewer.viewport.imageToViewportCoordinates(point)
+    viewer.viewport.zoomTo(20)
+    viewer.viewport.panTo(viewportPoint)
+  })
 };
 
 onMounted(async () => {
@@ -94,13 +106,11 @@ onMounted(async () => {
   });
   const coord = random_point.patch_coord
   const size = selectedMeta.value.size
-
-  const viewportPoint = viewer.viewport.imageToViewportCoordinates(Math.random(),Math.random())
   viewer.addHandler('open', () => { 
+    const point = new OpenSeadragon.Point(coord[0], coord[1])
+    const viewportPoint = viewer.viewport.imageToViewportCoordinates(point)
     viewer.viewport.zoomTo(20)
-    console.log("lhm===",viewportPoint)
     viewer.viewport.panTo(viewportPoint)
-    console.log(coord,size)
   })
 });
 
@@ -138,6 +148,7 @@ onMounted(async () => {
           :selected-point="selectedPoint"
           :nearby-points="nearbyPoints"
           :selected-meta="selectedMeta"
+          @chart-click="handleNearClick"
         />
       </div>
     </main>

@@ -32,49 +32,28 @@ const updateChart = () => {
     return;
   }
   console.log(`Updating chart with display mode: ${props.displayMode}...`);
-  console.log('Representative Features:', props.representativeFeatures);
-  const chartData = props.representativeFeatures.map(f => {
-    let opacity = 0.8;
-    if (props.displayMode === 'positive' && f.type === 1) {
-      opacity = 0.1;
-    } else if (props.displayMode === 'negative' && f.type === 0) {
-      opacity = 0.1;
-    }
 
-    // Prepare value for 2D or 3D visualization
-    let pointValue;
-    // The feature object 'f' comes from representativeFeatures, which is processed by loadData.
-    // 'f.value' should hold UMAP_2d coordinates, and 'f.UMAP_3d' should hold 3D coordinates if available.
-    if (f.UMAP_3d && Array.isArray(f.UMAP_3d) && f.UMAP_3d.length === 3) {
-      pointValue = f.UMAP_3d;
-    } else if (f.value && Array.isArray(f.value) && f.value.length === 2) {
-      pointValue = [f.value[0], f.value[1], 0]; // Use UMAP_2d and set Z to 0
-    } else {
-      // Fallback if no valid coordinates are found
-      console.warn(`Feature ${f.id} has no valid UMAP_2d or UMAP_3d data. Defaulting to [0,0,0]. Feature data:`, f);
-      pointValue = [0, 0, 0]; 
-    }
+  // 1. 应用显示模式过滤
+  let filteredFeatures = [...props.representativeFeatures];
+  if (props.displayMode === 'positiveonly') {
+    filteredFeatures = filteredFeatures.filter(f => f.type === 1);
+  } else if (props.displayMode === 'negativeonly') {
+    filteredFeatures = filteredFeatures.filter(f => f.type === 0);
+  }
 
-    return {
-      name: f.id,
-      value: pointValue, // This will be UMAP_3d or UMAP_2d with Z=0
-      itemStyle: {
-        color: f.type === 1 ? '#c23531' : '#2f4554',
-        opacity: opacity
-      },
-      emphasis: {
-          itemStyle: {
-              opacity: 1,
-              borderColor: '#000',
-              borderWidth: 1.5
-          }
-      },
-      imagePath: f.image, // Keep imagePath for potential use in tooltips or clicks
-      // Store original 2D/3D data if needed for specific interactions
-      originalUMAP2d: f.value, // This is the original UMAP_2d from loadData
-      originalUMAP3d: f.UMAP_3d // This is the original UMAP_3d from loadData
-    };
-  });
+  // 2. 处理数据和样式
+  const chartData = filteredFeatures.map(f => ({
+    name: f.id,
+    value: getPointCoordinates(f),
+    itemStyle: getPointStyle(f),
+    emphasis: getEmphasisStyle(f),
+    symbolSize: getPointSize(f),
+    zlevel: f.is_domain ? 2 : 1, // domain点置于顶层，避免被遮挡
+    imagePath: f.image, // Keep imagePath for potential use in tooltips or clicks
+    // Store original 2D/3D data if needed for specific interactions
+    originalUMAP2d: f.value, // This is the original UMAP_2d from loadData
+    originalUMAP3d: f.UMAP_3d // This is the original UMAP_3d from loadData
+  }));
 
   const option = {
     title: { text: '特征聚类图 (3D)' },
@@ -88,7 +67,7 @@ const updateChart = () => {
         const originalFeature = props.representativeFeatures.find(f => f.id === featureData.name);
 
         if (originalFeature) {
-          tooltipText += `<br/>类型: ${originalFeature.type === 'positive' ? '阳性' : '阴性'}`;
+          tooltipText += `<br/>类型: ${originalFeature.type === 1 ? '阳性' : '阴性'}`;
         }
 
         if (featureData.value && featureData.value.length === 3) {
@@ -183,7 +162,65 @@ onMounted(() => {
     chartInstance.value?.dispose();
   });
 });
+// 抽取坐标处理逻辑
+const getPointCoordinates = (feature) => {
+  if (feature.UMAP_3d && Array.isArray(feature.UMAP_3d) && feature.UMAP_3d.length === 3) {
+    return feature.UMAP_3d;
+  } else if (feature.value && Array.isArray(feature.value) && feature.value.length === 2) {
+    return [feature.value[0], feature.value[1], 0]; // 2D坐标转3D
+  }
+  console.warn(`Feature ${feature.id} has no valid coordinates`);
+  return [0, 0, 0];
+};
 
+// 抽取样式处理逻辑 - 核心重构部分
+const getPointStyle = (feature) => {
+  // 基础样式
+  const baseStyle = {
+    color: getBaseColor(feature),
+    opacity: feature.is_domain ? 1.0 : 0.2, // 降低非domain点存在感
+  };
+
+  // domain点高亮效果
+  if (feature.is_domain) {
+    return {
+      ...baseStyle,
+      shadowBlur: 10 + (feature.ratio || 0) * 15, // 根据ratio调整发光强度
+      shadowColor: baseStyle.color,
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      borderColor: '#fff',
+      borderWidth: 1.5
+    };
+  }
+
+  return baseStyle;
+};
+
+// 抽取颜色逻辑
+const getBaseColor = (feature) => {
+  // 保持原有阳性/阴性颜色区分
+  return feature.type === 1 ? '#c23531' : '#2f4554';
+};
+
+// 抽取大小逻辑
+const getPointSize = (feature) => {
+  if (feature.is_domain) {
+    // domain点更大且根据ratio调整
+    return 10 + (feature.ratio || 0) * 8;
+  }
+  // 非domain点更小
+  return 6;
+};
+
+// 抽取强调样式逻辑
+const getEmphasisStyle = (feature) => ({
+  itemStyle: {
+    opacity: 1,
+    borderColor: '#000',
+    borderWidth: 2
+  }
+});
 watch(() => props.representativeFeatures, (newVal) => {
   if (newVal) updateChart();
 }, { deep: true });
@@ -209,3 +246,5 @@ watch(() => props.displayMode, () => {
   border-radius: 4px;
 }
 </style>
+
+

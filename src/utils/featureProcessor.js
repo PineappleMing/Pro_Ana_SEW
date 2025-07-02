@@ -195,7 +195,7 @@ export const loadData = async () => {
   try {
     // Fetch data from the new JSON file structure
     // Assuming your new data is in a single file, adjust if it's multiple files
-    const response = await fetch('http://10.86.100.29/vips/zheyi_liver/umap_3d_conch_v15.json'); // Or the correct path to your new data file
+    const response = await fetch('http://10.86.100.29/vips/zheyi_liver/umap_3d_conch_v15_domain.json'); // Or the correct path to your new data file
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -205,14 +205,12 @@ export const loadData = async () => {
     // Adapt the rawData to the structure expected by the application
     const processedFeatures = rawData.map(item => ({
       id: item.slide_id + '_' + item.coord.join('_'), // Create a unique ID
-      // image: item.image_url,
       type: item.slide_label, // 'positive' or 'negative'
-      // value: item.UMAP_2d, // Directly use the 2D UMAP coordinates
-      // Add other necessary fields if any, e.g., originalValue if still needed for some processing
-      // originalValue: item.embedding, // If you still need the original embedding for some reason
       patch_coord: item.coord,
       slide_id: item.slide_id,
-      UMAP_3d: item.UMAP_3d // Keep 3D coordinates if needed for other purposes
+      UMAP_3d: item.UMAP_3d, // Keep 3D coordinates if needed for other purposes
+      is_domain: item.is_domain, // 添加新字段
+      ratio: item.ratio // 添加新字段
     }));
 
     // Separate features based on label
